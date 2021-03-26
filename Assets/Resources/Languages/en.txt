@@ -1,0 +1,6 @@
+﻿Paused=Game Is Paused
+Demo1=Hi
+Demo2=This is Game Architecture!
+Demo3=It's most easy way to start a game. I mean.. I mean like who wouldn't want to start developing games half way? :D
+Demo4=Hehehehe
+Demo5=Good Luck :)
