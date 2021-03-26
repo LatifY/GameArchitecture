@@ -2,5 +2,5 @@
 Demo1=Salut
 Demo2=C'est l'architecture du jeu!
 Demo3=C'est le moyen le plus simple de démarrer une partie. Je veux dire ... Je veux dire, qui ne voudrait pas commencer à développer des jeux à mi-chemin? :D
-Démo4=Hehehehe
+Demo4=Heehehe...
 Demo5=Bonne chance :)

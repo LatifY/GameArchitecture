@@ -2,5 +2,5 @@
 Demo1=Selam
 Demo2=Game Architecure'a hoş geldin :)
 Demo3=Bu sistem oyun yapmaya başlamak için geliştirilen en kolay sistemdir. Yani.. Y-Yani kim oyun yapımına yarı yoldan başlamak istemez ki.
-Demo4=...
-Demo5=Heehehe Good Luck on your game :)
+Demo4=Heehehe...
+Demo5=Oyununda başarılar :)

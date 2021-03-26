@@ -12,7 +12,7 @@ public enum CameraState
 {
 	AlwaysTarget,
 	AlwaysTargetWithLimit,
-	Interactive
+	Interactive_Beta
 }
 
 public enum TrackState
@@ -57,7 +57,7 @@ public class CameraManager : MonoBehaviour
 				Vector3 cameraPos = GetPosWithLimit();
 				transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
 			}
-			else if (cameraState == CameraState.Interactive)
+			else if (cameraState == CameraState.Interactive_Beta)
 			{
 				Vector3 cameraPos = GetPosWithLimit();
 				transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
@@ -66,7 +66,7 @@ public class CameraManager : MonoBehaviour
 		}
 		else
 		{
-			if (cameraState == CameraState.Interactive)
+			if (cameraState == CameraState.Interactive_Beta)
 			{
 				StartCoroutine(ChangeCameraSize(minSize));
 			}
@@ -170,7 +170,7 @@ public class CameraManagerEditor : Editor
 		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type",myScript.cameraState);
 		myScript.trackState = (TrackState)EditorGUILayout.EnumPopup("Camera Tracking Coordinates", myScript.trackState);
 		GUILayout.Space(30);
-		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit || myScript.cameraState == CameraState.Interactive)
+		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit || myScript.cameraState == CameraState.Interactive_Beta)
 		{
 			EditorGUILayout.LabelField("Camera Pos Limit", EditorStyles.boldLabel);
 			if (myScript.trackState == TrackState.XY)
@@ -189,7 +189,7 @@ public class CameraManagerEditor : Editor
 			}
 			GUILayout.Space(10);
 		}
-		if (myScript.cameraState == CameraState.Interactive)
+		if (myScript.cameraState == CameraState.Interactive_Beta)
 		{
 			EditorGUILayout.LabelField("Camera Size Limit", EditorStyles.boldLabel);
 			OpenSizeLimit();
