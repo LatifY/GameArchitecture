@@ -12,7 +12,7 @@ public enum CameraState
 {
 	AlwaysTarget,
 	AlwaysTargetWithLimit,
-	Interactive_Beta
+	TargetEdgeScrolling
 }
 
 public enum TrackState
@@ -27,13 +27,19 @@ public class CameraManager : MonoBehaviour
 {
 	public CameraState cameraState;
 	public TrackState trackState;
+
 	private Camera cam;
+	private float width, height, offset;
 
 	public Transform cameraTarget;
 	public float smoothness = 1f;
 
 	//Always Target With Limit
-	public float minX,minY,maxX,maxY;
+	public float minX, minY, maxX, maxY;
+
+	//Target Edge Scrolling
+	private float edgeX = 0;
+	private float edgeY = 0;
 
 	//Interactive
 	public float minSize, maxSize;
@@ -41,36 +47,69 @@ public class CameraManager : MonoBehaviour
 	private void Awake()
 	{
 		cam = GetComponent<Camera>();
+		height = cam.orthographicSize * 2f;
+		width = height * cam.aspect;
+		offset = width / 2;
 	}
 
-	private void Update()
+	private void Start()
 	{
-		if (!IsSimilar(transform.position.x, cameraTarget.transform.position.x) && !IsSimilar(transform.position.y, cameraTarget.transform.position.y))
+		if (cameraState == CameraState.AlwaysTarget)
 		{
-			if (cameraState == CameraState.AlwaysTarget)
-			{
-				Vector3 cameraPos = GetPos();
-				transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
-			}
-			else if (cameraState == CameraState.AlwaysTargetWithLimit)
-			{
-				Vector3 cameraPos = GetPosWithLimit();
-				transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
-			}
-			else if (cameraState == CameraState.Interactive_Beta)
-			{
-				Vector3 cameraPos = GetPosWithLimit();
-				transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
-				StartCoroutine(ChangeCameraSize(maxSize));
-			}
+			StartCoroutine(AlwaysTarget());
+		}
+		else if (cameraState == CameraState.AlwaysTargetWithLimit)
+		{
+			StartCoroutine(AlwaysTargetWithLimit());
+		}
+		else if (cameraState == CameraState.TargetEdgeScrolling)
+		{
+			StartCoroutine(TargetEdgeScrolling());
+		}
+	}
+
+	private IEnumerator AlwaysTarget()
+	{
+		Vector3 cameraPos = GetPos();
+		transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
+		yield return new WaitForFixedUpdate();
+		StartCoroutine(AlwaysTarget());
+	}
+
+	private IEnumerator AlwaysTargetWithLimit()
+	{
+		Vector3 cameraPos = GetPosWithLimit();
+		transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
+		yield return new WaitForFixedUpdate();
+		StartCoroutine(AlwaysTargetWithLimit());
+	}
+
+	private IEnumerator TargetEdgeScrolling()
+	{
+		float xPos = cameraTarget.position.x;
+
+		if (xPos > -offset && xPos < offset)
+		{
+			edgeX = (int)(cameraTarget.position.x / offset);
 		}
 		else
 		{
-			if (cameraState == CameraState.Interactive_Beta)
+			int value = (int)((cameraTarget.position.x - offset) / (width));
+			if (xPos > offset)
 			{
-				StartCoroutine(ChangeCameraSize(minSize));
+				edgeX = value + 1;
+			}
+			else if (xPos < -offset)
+			{
+				edgeX = value;
 			}
 		}
+
+		Vector3 cameraPos = GetPosEdgeScrolling();
+		transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
+
+		yield return new WaitForFixedUpdate();
+		StartCoroutine(TargetEdgeScrolling());
 	}
 
 	private IEnumerator ChangeCameraSize(float value)
@@ -96,7 +135,7 @@ public class CameraManager : MonoBehaviour
 
 	private bool IsSimilar(float x, float y)
 	{
-		if (x >= y-0.05f && x <= y+0.05f)
+		if (x >= y - 0.05f && x <= y + 0.05f)
 		{
 			return true;
 		}
@@ -120,7 +159,6 @@ public class CameraManager : MonoBehaviour
 		}
 		return cameraPos;
 	}
-
 	private Vector3 GetPosWithLimit()
 	{
 		Vector3 cameraPos = new Vector3(0, 0, 0);
@@ -143,6 +181,23 @@ public class CameraManager : MonoBehaviour
 		return cameraPos;
 	}
 
+	private Vector3 GetPosEdgeScrolling()
+	{
+		Vector3 cameraPos = new Vector3(0, 0, 0);
+		if (trackState == TrackState.XY)
+		{
+			cameraPos = new Vector3(edgeX * width, 0, -10);
+		}
+		else if (trackState == TrackState.X)
+		{
+			cameraPos = new Vector3(edgeX * width, 0, -10);
+		}
+		else if (trackState == TrackState.Y)
+		{
+			cameraPos = new Vector3(edgeX * width, 0, -10);
+		}
+		return cameraPos;
+	}
 }
 
 #if UNITY_EDITOR
@@ -162,17 +217,18 @@ public class CameraManagerEditor : Editor
 
 	override public void OnInspectorGUI()
 	{
-	    myScript = target as CameraManager;
+		myScript = target as CameraManager;
 		EditorGUILayout.ObjectField(cameraTarget);
-		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness",myScript.smoothness);
+		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness", myScript.smoothness);
 		EditorGUILayout.HelpBox("Camera Smoothness gives us smooth camera tracking. Default value is 1", MessageType.Info);
 		GUILayout.Space(20);
-		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type",myScript.cameraState);
+		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type", myScript.cameraState);
 		myScript.trackState = (TrackState)EditorGUILayout.EnumPopup("Camera Tracking Coordinates", myScript.trackState);
 		GUILayout.Space(30);
-		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit || myScript.cameraState == CameraState.Interactive_Beta)
+		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit)
 		{
 			EditorGUILayout.LabelField("Camera Pos Limit", EditorStyles.boldLabel);
+
 			if (myScript.trackState == TrackState.XY)
 			{
 				OpenPosLimitX();
@@ -187,12 +243,7 @@ public class CameraManagerEditor : Editor
 			{
 				OpenPosLimitY();
 			}
-			GUILayout.Space(10);
-		}
-		if (myScript.cameraState == CameraState.Interactive_Beta)
-		{
-			EditorGUILayout.LabelField("Camera Size Limit", EditorStyles.boldLabel);
-			OpenSizeLimit();
+
 			GUILayout.Space(10);
 		}
 		serializedObject.ApplyModifiedProperties();
