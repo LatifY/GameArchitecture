@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
 	public TrackState trackState;
 
 	private Camera cam;
-	private float width, height, offset;
+	private float width, height, offsetX, offsetY;
 
 	public Transform cameraTarget;
 	public float smoothness = 1f;
@@ -49,7 +49,8 @@ public class CameraManager : MonoBehaviour
 		cam = GetComponent<Camera>();
 		height = cam.orthographicSize * 2f;
 		width = height * cam.aspect;
-		offset = width / 2;
+		offsetX = width / 2;
+		offsetY = height / 2;
 	}
 
 	private void Start()
@@ -86,25 +87,7 @@ public class CameraManager : MonoBehaviour
 
 	private IEnumerator TargetEdgeScrolling()
 	{
-		float xPos = cameraTarget.position.x;
-
-		if (xPos > -offset && xPos < offset)
-		{
-			edgeX = (int)(cameraTarget.position.x / offset);
-		}
-		else
-		{
-			int value = (int)((cameraTarget.position.x - offset) / (width));
-			if (xPos > offset)
-			{
-				edgeX = value + 1;
-			}
-			else if (xPos < -offset)
-			{
-				edgeX = value;
-			}
-		}
-
+		SetEdges();
 		Vector3 cameraPos = GetPosEdgeScrolling();
 		transform.position = Vector3.Lerp(transform.position, cameraPos, smoothness);
 
@@ -186,17 +169,59 @@ public class CameraManager : MonoBehaviour
 		Vector3 cameraPos = new Vector3(0, 0, 0);
 		if (trackState == TrackState.XY)
 		{
-			cameraPos = new Vector3(edgeX * width, 0, -10);
+			cameraPos = new Vector3(edgeX * width, edgeY * height, -10);
 		}
 		else if (trackState == TrackState.X)
 		{
-			cameraPos = new Vector3(edgeX * width, 0, -10);
+			cameraPos = new Vector3(edgeX * width, transform.position.y, -10);
 		}
 		else if (trackState == TrackState.Y)
 		{
-			cameraPos = new Vector3(edgeX * width, 0, -10);
+			cameraPos = new Vector3(transform.position.x, edgeY * height, -10);
 		}
 		return cameraPos;
+	}
+	private void SetEdges()
+	{
+		//X
+		float xPos = cameraTarget.position.x;
+
+		if (xPos > -offsetX && xPos < offsetX)
+		{
+			edgeX = (int)(cameraTarget.position.x / offsetX);
+		}
+		else
+		{
+			int value = (int)((cameraTarget.position.x - offsetX) / (width));
+			if (xPos > offsetX)
+			{
+				edgeX = value + 1;
+			}
+			else if (xPos < -offsetX)
+			{
+				edgeX = value;
+			}
+		}
+
+		//Y
+		float yPos = cameraTarget.position.y;
+
+		if (yPos > -offsetY && yPos < offsetY)
+		{
+			edgeY = (int)(cameraTarget.position.y / offsetY);
+		}
+		else
+		{
+			int value = (int)((cameraTarget.position.y - offsetY) / (height));
+			if (yPos > offsetY)
+			{
+				edgeY = value + 1;
+			}
+			else if (yPos < -offsetY)
+			{
+				edgeY = value;
+			}
+		}
 	}
 }
 
@@ -217,14 +242,14 @@ public class CameraManagerEditor : Editor
 
 	override public void OnInspectorGUI()
 	{
-		myScript = target as CameraManager;
+	    myScript = target as CameraManager;
 		EditorGUILayout.ObjectField(cameraTarget);
-		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness", myScript.smoothness);
+		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness",myScript.smoothness);
 		EditorGUILayout.HelpBox("Camera Smoothness gives us smooth camera tracking. Default value is 1", MessageType.Info);
 		GUILayout.Space(20);
-		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type", myScript.cameraState);
+		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type",myScript.cameraState);
 		myScript.trackState = (TrackState)EditorGUILayout.EnumPopup("Camera Tracking Coordinates", myScript.trackState);
-		GUILayout.Space(30);
+		GUILayout.Space(30);	
 		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit)
 		{
 			EditorGUILayout.LabelField("Camera Pos Limit", EditorStyles.boldLabel);
@@ -249,7 +274,7 @@ public class CameraManagerEditor : Editor
 		serializedObject.ApplyModifiedProperties();
 	}
 
-	#region Open PosLimit
+#region Open PosLimit
 	private void OpenPosLimitX()
 	{
 		myScript.minX = EditorGUILayout.FloatField("Minimum X", myScript.minX);
@@ -260,7 +285,7 @@ public class CameraManagerEditor : Editor
 		myScript.minY = EditorGUILayout.FloatField("Minimum Y", myScript.minY);
 		myScript.maxY = EditorGUILayout.FloatField("Maximum Y", myScript.maxY);
 	}
-	#endregion
+#endregion
 
 	private void OpenSizeLimit()
 	{
