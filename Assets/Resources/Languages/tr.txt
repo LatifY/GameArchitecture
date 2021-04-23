@@ -1,6 +1,6 @@
 ﻿Paused=Oyun Durduruldu
-Demo1=Selam
-Demo2=Game Architecure'a hoş geldin :)
+Demo1=<wobbly>Selam!</wobbly>
+Demo2=<shake>Game Architecure</shake>'a hoş geldin :)
 Demo3=Bu sistem oyun yapmaya başlamak için geliştirilen en kolay sistemdir. Yani.. Y-Yani kim oyun yapımına yarı yoldan başlamak istemez ki.
 Demo4=Heehehe...
 Demo5=Oyununda başarılar :)
