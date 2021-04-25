@@ -1,0 +1,1 @@
+{"Name":"GameArchitecture","LV":1,"HP":20,"maxHP":20,"G":0}
