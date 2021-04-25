@@ -1,6 +1,7 @@
 ﻿Paused=Game Is Paused
-Demo1=Hi
-Demo2=This is Game Architecture!
-Demo3=It's most easy way to start a game. I mean.. I mean like who wouldn't want to start developing games half way? :D
-Demo4=Heehehe...
-Demo5=Good Luck :)
+Demo1=<wobbly><color=orange>Hi!</color></wobbly>
+Demo2=This is <shake>Game Architecture!</shake>
+Demo3=It's most easy way to start developing a <wobbly><color=blue>game</wobbly>. 
+Demo4= I mean.. I mean like who wouldn't want to start developing games <wobbly>half way?</wobbly> :D
+Demo5=<wobbly>Heehehe <sprite=6>...</wobbly>
+Demo6=<color=orange>Good Luck :)</color>

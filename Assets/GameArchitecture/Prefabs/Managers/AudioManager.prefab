@@ -141,9 +141,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: DialogueWriter
-    clip: {fileID: 8300000, guid: a738efd4bfd3c574c8f89e4deb4054ca, type: 3}
-    volume: 1
+  - name: dialogue
+    clip: {fileID: 8300000, guid: f9810559b879a104e9d7e7d595264b0c, type: 3}
+    volume: 0.85
     pitch: 1
     source: {fileID: 0}
   DontDestroy: 0

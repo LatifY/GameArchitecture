@@ -1,6 +1,7 @@
 ﻿Paused=Oyun Durduruldu
-Demo1=<wobbly>Selam!</wobbly>
-Demo2=<shake>Game Architecure</shake>'a hoş geldin :)
-Demo3=Bu sistem oyun yapmaya başlamak için geliştirilen en kolay sistemdir. Yani.. Y-Yani kim oyun yapımına yarı yoldan başlamak istemez ki.
-Demo4=Heehehe...
-Demo5=Oyununda başarılar :)
+Demo1=<wobbly><color=orange>Selam!</color></wobbly>
+Demo2=Bu <shake>Game Architecture!</shake>
+Demo3=<wobbly><color=blue>Oyun</wobbly> geliştirmeye başlamanın en kolay yolu!
+Demo4= Yani.. Yani kim geliştirmeye <wobbly>yarı yoldan</wobbly> başlamak istemez ki? :D
+Demo5=<wobbly>Heehehe <sprite=6>...</wobbly>
+Demo6=<color=orange>İyi Şanslar :)</color>

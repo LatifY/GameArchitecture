@@ -1,6 +1,7 @@
 ﻿Paused=le jeu est suspendu
-Demo1=Salut
-Demo2=C'est l'architecture du jeu!
-Demo3=C'est le moyen le plus simple de démarrer une partie. Je veux dire ... Je veux dire, qui ne voudrait pas commencer à développer des jeux à mi-chemin? :D
-Demo4=Heehehe...
-Demo5=Bonne chance :)
+Demo1=<wobbly>Salut!</wobbly>
+Demo2=C'est <shake>Game Architecture</shake> du jeu!
+Demo3=C'est le moyen le plus simple de démarrer une partie. 
+Demo4=Je veux dire ... Je veux dire, qui ne voudrait pas commencer à développer des jeux à mi-chemin? :D
+Demo5=<wobbly>Heehehe <sprite=6>...</wobbly>
+Demo6=<color=orange>Bonne chance :)</color>

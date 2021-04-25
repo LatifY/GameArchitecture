@@ -77,10 +77,7 @@ public class Writer : MonoBehaviour
 			for (int i = 0; i < sentence.Length; i++)
 			{
 				char letter = sentence[i];
-				if (playSoundEachLetter && playSound)
-				{
-					AudioManager.Instance.PlayClipWithRandomPitch(soundName, minPitch, maxPitch);
-				}
+
 				string letterStr = letter.ToString();
 				if (tag)
 				{
@@ -162,6 +159,10 @@ public class Writer : MonoBehaviour
 					}
 					else
 					{
+						if (playSoundEachLetter && playSound)
+						{
+							AudioManager.Instance.PlayClipWithRandomPitch(soundName, minPitch, maxPitch);
+						}
 						writerText.text += letter;
 						if (letter.ToString().IndexOfAny(stopperChars) != -1)
 						{
