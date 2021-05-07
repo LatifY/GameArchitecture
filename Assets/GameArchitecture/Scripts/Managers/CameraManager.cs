@@ -40,9 +40,13 @@ public class CameraManager : MonoBehaviour
 	//Target Edge Scrolling
 	private float edgeX = 0;
 	private float edgeY = 0;
+	public float minEdgeX, minEdgeY, maxEdgeX, maxEdgeY;
 
 	//Interactive
 	public float minSize, maxSize;
+
+	private bool inFocus;
+	private float defaultOrthographicSize;
 
 	private void Awake()
 	{
@@ -51,9 +55,16 @@ public class CameraManager : MonoBehaviour
 		width = height * cam.aspect;
 		offsetX = width / 2;
 		offsetY = height / 2;
+
+		defaultOrthographicSize = cam.orthographicSize;
 	}
 
 	private void Start()
+	{
+		StartState();
+	}
+
+	private void StartState()
 	{
 		if (cameraState == CameraState.AlwaysTarget)
 		{
@@ -93,36 +104,6 @@ public class CameraManager : MonoBehaviour
 
 		yield return new WaitForFixedUpdate();
 		StartCoroutine(TargetEdgeScrolling());
-	}
-
-	private IEnumerator ChangeCameraSize(float value)
-	{
-		if (!IsSimilar(cam.orthographicSize, value))
-		{
-			if (cam.orthographicSize < value)
-			{
-				cam.orthographicSize += Time.deltaTime * 0.5f;
-			}
-			else if (cam.orthographicSize > value)
-			{
-				cam.orthographicSize -= Time.deltaTime * 0.5f;
-			}
-		}
-		else
-		{
-			yield break;
-		}
-		yield return new WaitForSeconds(0.01f);
-		StartCoroutine(ChangeCameraSize(value));
-	}
-
-	private bool IsSimilar(float x, float y)
-	{
-		if (x >= y - 0.05f && x <= y + 0.05f)
-		{
-			return true;
-		}
-		return false;
 	}
 
 	private Vector3 GetPos()
@@ -183,6 +164,7 @@ public class CameraManager : MonoBehaviour
 	}
 	private void SetEdges()
 	{
+
 		//X
 		float xPos = cameraTarget.position.x;
 
@@ -222,7 +204,104 @@ public class CameraManager : MonoBehaviour
 				edgeY = value;
 			}
 		}
+
+		if (edgeX >= maxEdgeX) { edgeX = maxEdgeX; }
+		if (edgeX <= minEdgeX) { edgeX = minEdgeX; }
+
+		if (edgeY >= maxEdgeY) { edgeY = maxEdgeY; }
+		if (edgeY <= minEdgeY) { edgeY = minEdgeY; }
 	}
+
+
+
+	public IEnumerator Focus(Transform pos, float size, float speed)
+	{
+		StopCoroutine(AlwaysTarget());
+		StopCoroutine(AlwaysTargetWithLimit());
+		StopCoroutine(TargetEdgeScrolling());
+		bool sizeCheck = IsSimilar(cam.orthographicSize, size);
+		bool posCheck = IsSimilar(transform.position.x, pos.position.x) && !IsSimilar(transform.position.y, pos.position.y);
+		if (!sizeCheck || !posCheck)
+		{
+			if (!sizeCheck)
+			{
+				if (cam.orthographicSize > size)
+				{
+					cam.orthographicSize -= Time.deltaTime * speed;
+				}
+				else
+				{
+					cam.orthographicSize += Time.deltaTime * speed;
+				}
+			}
+			if (!posCheck)
+			{
+				transform.position = Vector3.Lerp(transform.position, new Vector3(pos.position.x, pos.position.y, -10), smoothness);
+			}
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(Focus(pos, size, speed));
+		}
+		else
+		{
+			StartState();
+			yield return null;
+		}
+	}
+
+	public IEnumerator Unfocus(float speed)
+	{
+		StopCoroutine(AlwaysTarget());
+		StopCoroutine(AlwaysTargetWithLimit());
+		StopCoroutine(TargetEdgeScrolling());
+		bool sizeCheck = IsSimilar(cam.orthographicSize, defaultOrthographicSize);
+		if (!sizeCheck)
+		{
+			if (cam.orthographicSize > defaultOrthographicSize)
+			{
+				cam.orthographicSize -= Time.deltaTime * speed;
+			}
+			else
+			{
+				cam.orthographicSize += Time.deltaTime * speed;
+			}
+			yield return new WaitForFixedUpdate();
+			StartCoroutine(Unfocus(speed));
+		}
+		else
+		{
+			StartState();
+			yield return null;
+		}
+	}
+
+	/*
+	private void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			StartCoroutine(Focus(cameraTarget, 3f, 2));
+		}
+		if (Input.GetKeyDown(KeyCode.N))
+		{
+			StartCoroutine(Unfocus(2));
+			StartCoroutine(Unfocus(2));
+		}
+	}
+	*/
+
+	/// <summary>
+	/// Is A similar to B? 
+	/// </summary>
+	private bool IsSimilar(float a, float b, float ignoreRange = 0.1f)
+	{
+		if (a >= b - ignoreRange && a <= b + ignoreRange)
+		{
+			return true;
+		}
+		return false;
+	}
+
+
 }
 
 #if UNITY_EDITOR
@@ -242,17 +321,17 @@ public class CameraManagerEditor : Editor
 
 	override public void OnInspectorGUI()
 	{
-	    myScript = target as CameraManager;
+		myScript = target as CameraManager;
 		EditorGUILayout.ObjectField(cameraTarget);
-		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness",myScript.smoothness);
+		myScript.smoothness = EditorGUILayout.FloatField("Camera Smoothness", myScript.smoothness);
 		EditorGUILayout.HelpBox("Camera Smoothness gives us smooth camera tracking. Default value is 1", MessageType.Info);
 		GUILayout.Space(20);
-		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type",myScript.cameraState);
+		myScript.cameraState = (CameraState)EditorGUILayout.EnumPopup("Camera Type", myScript.cameraState);
 		myScript.trackState = (TrackState)EditorGUILayout.EnumPopup("Camera Tracking Coordinates", myScript.trackState);
-		GUILayout.Space(30);	
+		GUILayout.Space(30);
 		if (myScript.cameraState == CameraState.AlwaysTargetWithLimit)
 		{
-			EditorGUILayout.LabelField("Camera Pos Limit", EditorStyles.boldLabel);
+			EditorGUILayout.LabelField("Camera Pos Limits", EditorStyles.boldLabel);
 
 			if (myScript.trackState == TrackState.XY)
 			{
@@ -271,10 +350,31 @@ public class CameraManagerEditor : Editor
 
 			GUILayout.Space(10);
 		}
+		else if (myScript.cameraState == CameraState.TargetEdgeScrolling)
+		{
+			EditorGUILayout.LabelField("Camera Edge Limits", EditorStyles.boldLabel);
+
+			if (myScript.trackState == TrackState.XY)
+			{
+				OpenEdgeLimitX();
+				GUILayout.Space(5);
+				OpenEdgeLimitY();
+			}
+			else if (myScript.trackState == TrackState.X)
+			{
+				OpenEdgeLimitX();
+			}
+			else if (myScript.trackState == TrackState.Y)
+			{
+				OpenEdgeLimitY();
+			}
+
+			GUILayout.Space(10);
+		}
 		serializedObject.ApplyModifiedProperties();
 	}
 
-#region Open PosLimit
+	#region Open PosLimit
 	private void OpenPosLimitX()
 	{
 		myScript.minX = EditorGUILayout.FloatField("Minimum X", myScript.minX);
@@ -285,7 +385,20 @@ public class CameraManagerEditor : Editor
 		myScript.minY = EditorGUILayout.FloatField("Minimum Y", myScript.minY);
 		myScript.maxY = EditorGUILayout.FloatField("Maximum Y", myScript.maxY);
 	}
-#endregion
+	#endregion
+
+	#region Open EdgeLimit
+	private void OpenEdgeLimitX()
+	{
+		myScript.minEdgeX = EditorGUILayout.FloatField("Minimum Edge X", myScript.minEdgeX);
+		myScript.maxEdgeX = EditorGUILayout.FloatField("Maximum Edge X", myScript.maxEdgeX);
+	}
+	private void OpenEdgeLimitY()
+	{
+		myScript.minEdgeY = EditorGUILayout.FloatField("Minimum Edge Y", myScript.minEdgeY);
+		myScript.maxEdgeY = EditorGUILayout.FloatField("Maximum Edge Y", myScript.maxEdgeY);
+	}
+	#endregion
 
 	private void OpenSizeLimit()
 	{

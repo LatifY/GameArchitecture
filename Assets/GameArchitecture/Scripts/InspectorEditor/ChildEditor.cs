@@ -9,7 +9,6 @@ using UnityEditor;
 
 public class ChildEditor : MonoBehaviour
 {
-	public List<GameObject> childs;
 	public string ScriptName;
 }
 
@@ -31,19 +30,12 @@ public class ChildEditorGUI : Editor
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Enable"))
 		{
-			DefineChilds();
-			foreach (var obj in myScript.childs)
-			{
-				obj.SetActive(true);
-			}
+			Utils.SetActiveInChildren(myScript.gameObject, true);
+
 		}
 		if (GUILayout.Button("Disable"))
 		{
-			DefineChilds();
-			foreach (var obj in myScript.childs)
-			{
-				obj.SetActive(false);
-			}
+			Utils.SetActiveInChildren(myScript.gameObject, false);
 		}
 		GUILayout.EndHorizontal();
 		#endregion
@@ -55,58 +47,15 @@ public class ChildEditorGUI : Editor
 		GUILayout.BeginHorizontal();
 		if (GUILayout.Button("Enable"))
 		{
-			DefineChilds();
-			string scriptName = myScript.ScriptName;
-			foreach (var obj in myScript.childs)
-			{
-				var comp = obj.GetComponent(scriptName);
-				Behaviour be = comp as Behaviour;
-				if (be != null)
-				{
-					be.enabled = true;
-				}
-				else
-				{
-					Renderer rend = comp as Renderer;
-					if (rend != null)
-						rend.enabled = true;
-				}
-			}
+			Utils.ScriptActiveInChildren(myScript.gameObject, myScript.ScriptName, true);
 		}
 		if (GUILayout.Button("Disable"))
 		{
-			DefineChilds();
-			string scriptName = myScript.ScriptName;
-			foreach (var obj in myScript.childs)
-			{
-				var comp = obj.GetComponent(scriptName);
-				Behaviour be = comp as Behaviour;
-				if (be != null)
-				{
-					be.enabled = false;
-				}
-				else
-				{
-					Renderer rend = comp as Renderer;
-					if (rend != null)
-						rend.enabled = false;
-				}
-			}
+			Utils.ScriptActiveInChildren(myScript.gameObject, myScript.ScriptName, false);
 		}
 		GUILayout.EndHorizontal();
 		#endregion
 		serializedObject.ApplyModifiedProperties();
 	}
-
-	private void DefineChilds()
-	{
-		myScript.childs.Clear();
-		for (int i = 0; i < myScript.transform.childCount; i++)
-		{
-			myScript.childs.Add(myScript.gameObject.transform.GetChild(i).gameObject);
-		}
-	}
-
-
 }
 #endif
