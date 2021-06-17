@@ -3,7 +3,11 @@
 </div>
 
 # GameArchitecture
-**GameArchitecture** is a package made by **[Latif Yılmaz](https://latifyilmaz.com)**. It will make it easier for you to make games in Unity. It has many software and technical tools for developers.
+<details open>
+  <summary>English</summary>
+  <br>
+  
+  **GameArchitecture** is a package made by **[Latif Yılmaz](https://latifyilmaz.com)**. It will make it easier for you to make games in Unity. It has many software and technical tools for developers.
 
 This small document will simply introduce you to the **features**. So **let's start!**
 
@@ -120,3 +124,7 @@ It is the game control center in general. Adjustments such as language, recordin
 * Dialogue System
 * Writer Effects [Wobbly Text, Shake Text, Jelly Text, Sprite Support] with TextMeshPro
 * Cool Transition Effects
+
+  
+  
+<details>
