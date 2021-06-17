@@ -100,11 +100,23 @@ It is the game control center in general. Adjustments such as language, recordin
   <summary>Save/Load System for file</summary>
   <br>
   
-  
+- It is used to perform saving operations on the file. It is used with the SaveManager object.
+- Set Variables you want to save into Data Script. And simply save or load with Save Handler.
+- It saves the data under Assets/Saves. To change save settings, simply change the **SAVE_FOLDER** variable in **SaveSystem** script.
+- Tag name is "SaveManager"
   
   
 </details>
-* Child Editor System
+<details>
+  <summary>Child Editor</summary>
+  <br>
+  
+  You can use this component to make mass changes to the sub-objects of any object in the game scene.
+
+- You can change the visibility of child objects in the game scene.
+- You can open and close the components of child objects by writing component name as text.
+  
+</details>
 * Dialogue System
 * Writer Effects [Wobbly Text, Shake Text, Jelly Text, Sprite Support] with TextMeshPro
 * Cool Transition Effects
