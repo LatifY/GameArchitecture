@@ -127,4 +127,4 @@ It is the game control center in general. Adjustments such as language, recordin
 
   
   
-<details>
+</details>
