@@ -118,13 +118,47 @@ It is the game control center in general. Adjustments such as language, recordin
   You can use this component to make mass changes to the sub-objects of any object in the game scene.
 
 - You can change the visibility of child objects in the game scene.
-- You can open and close the components of child objects by writing component name as text.
+- You can open and close the components of child objects by typing component name as text.
   
 </details>
-* Dialogue System
-* Writer Effects [Wobbly Text, Shake Text, Jelly Text, Sprite Support] with TextMeshPro
+  
+<details>
+  <summary>Dialogue System</summary>
+  <br>
+  
+  GameArchitecture has a ready-made dialog system. Include features such as sound by letter or word, special texts, waiting, passing, language support (etc.) Designs are also readily available. You can change it if you want.
+  
+  You can edit the "Writer" script by creating boxes in the Dialogue object (prefab). You have to type the sentence directly in the sentence inputs or the key in the language .txt files (Resources folder). If the key is found, it will show according to the file. After event checks whether it will continue other dialogue box or not. You can also call up various events during the dialogue by adding different events.
+  
+</details>
+
+<details>
+  <summary>Writer Special Text Effects</summary>
+  <br>
+  
+  You can provide customizations for the texts by providing specific tags into Language file. For example; <shake>Hello</shake> makes the text shake.
+  
+  ### Wobbly
+  
+  It makes the text wave like a flag. For example; <wobbly>Hello Player!</wobbly>
+  
+  ### Shake
+  
+  It makes the text feel like an earthquake is happening. For example; <shake>Wooww, What's happening!</shake>
+  
+  ### Jelly
+  
+  It gives a gel-like animation to the text. For example; <jelly>Eww, that's disgusting!</jelly>
+  
+  ### Sprites
+  
+  It allows the use of various emojis. You can find the emoji code list [here](https://learn.unity.com/tutorial/textmesh-pro-sprite-assets). For example; <sprite=6> (😂)
+  
+  ### Colors
+  
+  You can also easily change the colors of the texts. It also works with other tags. For example; <shake>It looks <color=red>DANGEROUS!</color><shake>
+
+</details>
 * Cool Transition Effects
 
-  
-  
 </details>
