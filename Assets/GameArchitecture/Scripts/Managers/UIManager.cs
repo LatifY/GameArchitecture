@@ -10,14 +10,15 @@ namespace GameArchitecture
 		[SerializeField] private GameObject PausePanel;
 		public void Pause()
 		{
-			print("lol");
 			PausePanel.SetActive(true);
+			GameManager.Instance.GameStateChanger(2);
 		}
 
 		public void Resume()
 		{
-			print("lol2");
 			PausePanel.SetActive(false);
+			GameManager.Instance.GameStateChanger(1);
+
 		}
 	}
 

@@ -25,9 +25,9 @@ public static class Utils
 		for (int i = 0; i < parent.transform.childCount; i++)
 		{
 			parent.transform.GetChild(i).gameObject.SetActive(setBool);
-
 		}
 	}
+
 
 	public static void ScriptActiveInChildren(GameObject parent, string scriptName, bool setBool = false)
 	{
@@ -49,7 +49,15 @@ public static class Utils
 		}
 	}
 
+	public static bool IsAlmostSame(float a, float b, float ignoreRange = 0.1f)
+	{
+		if (a >= b - ignoreRange && a <= b + ignoreRange)
+		{
+			return true;
+		}
+		return false;
+	}
 
 
-
+	
 }

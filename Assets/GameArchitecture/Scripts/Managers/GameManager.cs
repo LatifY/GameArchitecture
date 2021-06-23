@@ -8,25 +8,29 @@ namespace GameArchitecture
 {
 	public class GameManager : MonoBehaviour
 	{
-		public enum GameState {
+		#region Game State
+		public enum GameState
+		{
 			DEFAULT,
 			INGAME,
 			PAUSED
 		}
-		private GameState _state;
-		public GameState state {
-			get 
-			{ 
-				return _state; 
-			}
-			set 
+		private GameState _gameState;
+		public GameState gameState
+		{
+			get
 			{
-				_state = value;
-				ChangeState();
+				return _gameState;
+			}
+			set
+			{
+				_gameState = value;
+				ChangeGameState();
 			}
 		}
+		#endregion
 
-		public Text pausedText, timescaleText;
+		public Text pausedText;
 		[SerializeField] private bool DontDestroy;
 		public static GameManager Instance;
 
@@ -46,12 +50,18 @@ namespace GameArchitecture
 					DontDestroyOnLoad(transform.gameObject);
 				}
 			}
-			ChangeState();
+			else
+			{
+				Instance = this;
+			}
+
+			ChangeGameState();
 		}
 
-		private void ChangeState()
+		#region Game State
+		private void ChangeGameState()
 		{
-			switch (_state)
+			switch (_gameState)
 			{
 				case GameState.DEFAULT:
 					break;
@@ -64,27 +74,47 @@ namespace GameArchitecture
 					Time.timeScale = 0f;
 					break;
 				default:
-					Debug.Log("ERROR: Unknown game state: " + state);
+					Debug.Log("ERROR: Unknown game state: " + gameState);
 					break;
 			}
-			Debug.Log("GAMESTATE: Game state is: " + state); 
+			Debug.Log("GAMESTATE: Game state is: " + gameState);
 		}
-
-		public void StateChanger(int changeToIndex)
+		public void GameStateChanger(int changeToIndex)
 		{
-			state = (GameState)changeToIndex;
+			gameState = (GameState)changeToIndex;
 		}
+		#endregion
 
+		#region Load Scene
+		/// <summary>
+		/// Pass -1 to index for loading active scene
+		/// </summary>
 		public void LoadScene(int index)
 		{
+			if (index == -1)
+			{
+				index = SceneManager.GetActiveScene().buildIndex;
+			}
+			GameObject[] transitionPanels = GameObject.FindGameObjectsWithTag("Transition");
 			Time.timeScale = 1f;
-			SceneManager.LoadScene(index);
+			if (transitionPanels == null)
+			{
+				SceneManager.LoadScene(index);
+			}
+			else
+			{
+				StartCoroutine(LoadSceneEnum(index, transitionPanels[0].GetComponent<Animator>()));
+			}
 		}
 
-		public void Printer(string something)
+		private IEnumerator LoadSceneEnum(int index, Animator anim)
 		{
-			print(something);
+			anim.SetTrigger("end");
+			yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+			SceneManager.LoadScene(index);
 		}
+		#endregion
 	}
+
 }
 

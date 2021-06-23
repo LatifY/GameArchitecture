@@ -219,8 +219,8 @@ public class CameraManager : MonoBehaviour
 		StopCoroutine(AlwaysTarget());
 		StopCoroutine(AlwaysTargetWithLimit());
 		StopCoroutine(TargetEdgeScrolling());
-		bool sizeCheck = IsSimilar(cam.orthographicSize, size);
-		bool posCheck = IsSimilar(transform.position.x, pos.position.x) && !IsSimilar(transform.position.y, pos.position.y);
+		bool sizeCheck = Utils.IsAlmostSame(cam.orthographicSize, size);
+		bool posCheck = Utils.IsAlmostSame(transform.position.x, pos.position.x) && !Utils.IsAlmostSame(transform.position.y, pos.position.y);
 		if (!sizeCheck || !posCheck)
 		{
 			if (!sizeCheck)
@@ -253,7 +253,7 @@ public class CameraManager : MonoBehaviour
 		StopCoroutine(AlwaysTarget());
 		StopCoroutine(AlwaysTargetWithLimit());
 		StopCoroutine(TargetEdgeScrolling());
-		bool sizeCheck = IsSimilar(cam.orthographicSize, defaultOrthographicSize);
+		bool sizeCheck = Utils.IsAlmostSame(cam.orthographicSize, defaultOrthographicSize);
 		if (!sizeCheck)
 		{
 			if (cam.orthographicSize > defaultOrthographicSize)
@@ -273,35 +273,6 @@ public class CameraManager : MonoBehaviour
 			yield return null;
 		}
 	}
-
-	/*
-	private void Update()
-	{
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			StartCoroutine(Focus(cameraTarget, 3f, 2));
-		}
-		if (Input.GetKeyDown(KeyCode.N))
-		{
-			StartCoroutine(Unfocus(2));
-			StartCoroutine(Unfocus(2));
-		}
-	}
-	*/
-
-	/// <summary>
-	/// Is A similar to B? 
-	/// </summary>
-	private bool IsSimilar(float a, float b, float ignoreRange = 0.1f)
-	{
-		if (a >= b - ignoreRange && a <= b + ignoreRange)
-		{
-			return true;
-		}
-		return false;
-	}
-
-
 }
 
 #if UNITY_EDITOR

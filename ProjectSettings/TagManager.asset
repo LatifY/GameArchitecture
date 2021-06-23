@@ -8,6 +8,7 @@ TagManager:
   - AudioManager
   - MusicManager
   - SaveManager
+  - Transition
   layers:
   - Default
   - TransparentFX

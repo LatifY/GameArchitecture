@@ -11,7 +11,7 @@ namespace GameArchitecture
 		[SerializeField] private Sound[] sounds;
 
 		[Header("Settings")]
-		[SerializeField] private bool DontDestroy;
+		[SerializeField] private bool dontDestroy;
 		public static AudioManager Instance;
 
 		private void Awake()
@@ -24,11 +24,17 @@ namespace GameArchitecture
 			{
 				Destroy(gameObject);
 			}
-			DontDestroyOnLoad(gameObject);
+
+			if (dontDestroy)
+			{
+				DontDestroyOnLoad(gameObject);
+			}
 
 			foreach (Sound s in sounds)
 			{
 				s.source = gameObject.AddComponent<AudioSource>();
+				s.source.playOnAwake = false;
+				s.source.loop = false;
 				s.source.clip = s.clip;
 			}
 		}
@@ -98,7 +104,6 @@ namespace GameArchitecture
 			s.source.Play();
 		}
 		#endregion
-
 	}
 }
 

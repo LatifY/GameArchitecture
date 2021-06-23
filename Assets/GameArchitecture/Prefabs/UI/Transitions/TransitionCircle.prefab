@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7043350507681007327}
   m_Layer: 5
   m_Name: TransitionCircle
-  m_TagString: Untagged
+  m_TagString: Transition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

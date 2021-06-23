@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 9056174728502073995}
   m_Layer: 5
   m_Name: TransitionDoor
-  m_TagString: Untagged
+  m_TagString: Transition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

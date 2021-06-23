@@ -77,7 +77,7 @@ public class Writer : MonoBehaviour
 			for (int i = 0; i < sentence.Length; i++)
 			{
 				char letter = sentence[i];
-
+				
 				string letterStr = letter.ToString();
 				if (tag)
 				{
