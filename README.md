@@ -273,7 +273,7 @@ This small document will simply introduce you to the **features**. So **let's st
   
   > Kameranın hedef için izleyeceği koordinat yönlerini ayarlamanızı sağlar.
   
-</detaylar>
+</details>
 
  <details>
    <summary>UI Manager</summary>
