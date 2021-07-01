@@ -339,7 +339,7 @@ This small document will simply introduce you to the **features**. So **let's st
   
    > Dil dosyasına belirli etiketler sağlayarak metinler için özelleştirmeler sağlayabilirsiniz.  Örneğin;  ```<shake>Merhaba</shake>``` metni sallar.
   
-   ### titrek
+   ### Wave
   
    > Metni bir bayrak gibi dalgalandırır.  Örneğin;  ```<wobbly>Merhaba Oyuncu!</wobbly>```
   
