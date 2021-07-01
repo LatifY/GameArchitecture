@@ -186,10 +186,9 @@ This small document will simply introduce you to the **features**. So **let's st
 
 </details>
 
-
-
-
-
+<br>
+<br>
+<br>
 
 <details>
    <summary>Türkçe</summary>
@@ -215,9 +214,9 @@ This small document will simply introduce you to the **features**. So **let's st
   
  ### Game Editor
 
- > Oyunun bazı ayarlarını yönetmenizi sağlar.  Ekleme, silme, yeni bir dil değiştirme veya ekleme, silme, [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) kontrol etme gibi.
+ > Oyunun bazı ayarlarını yönetmenizi sağlar.  Dil desteği ekleme, silme, değiştirme veya [PlayerPrefs](https://docs.unity3d.com/ScriptReference/PlayerPrefs.html) kontrol etme gibi...
   
- > Kolay bir arayüz sağlayarak gösterdiği gibi ek kod yazmanızı gerektirmez.
+ > Kolay bir arayüz sağlar. Ek olarak kod yazmanızı gerektirmez.
 
  </details>
 
@@ -225,7 +224,7 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>UI Manager</summary>
    <br>
   
-   > UI Elemanlarının ayarlamaları bu script ile yapılır.  Örneğin, bir menü açmak veya bir metindeki karakterin puanını güncellemek vb. [Tuval panelinde](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) bulunur.
+   > UI Elemanlarının ayarlamaları bu script ile yapılır.  Örneğin, bir menü açmak veya bir metindeki karakterin puanını güncellemek vb. [UI Canvas panelinde](https://docs.unity3d.com/2020.1/Documentation/Manual/UICanvas.html) bulunur.
   
  > Etiket adı "UIManager"dır.
 
@@ -235,7 +234,7 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>Audio Manager</summary>
    <br>
   
-   > Sesler [AudioSource](https://docs.unity3d.com/2020.1/Documentation/Manual/class-AudioSource.html) bileşeni ile bu nesnenin altında tutulur.  Bu sesleri çalmak için verilen key veya indeksi metoda çağırmak yeterlidir.
+   > Sesler [AudioSource](https://docs.unity3d.com/2020.1/Documentation/Manual/class-AudioSource.html) bileşeni ile bu nesnenin altında tutulur.  Bu sesleri çalmak için verilen anahtar veya indeksi metoda çağırmak yeterlidir. Örneğin; ```AudioManager.Instance.PlayClip("JumpSFX")```
   
  > Etiket adı "AudioManager".
 
@@ -247,7 +246,7 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>Music Manager</summary>
    <br>
   
-   > Müzikler bu komut dosyası altında ayarlanır.  Yine sesler de eklenir.  [Yok Etme](https://docs.unity3d.com/ScriptReference/Object.DontDestroyOnLoad.html) de mevcuttur, böylece sahne değişiminde kaybolmaz.
+   > Müzikler bu komut dosyası altında ayarlanır. Yine sesler de eklenir. [Don't Destroy](https://docs.unity3d.com/ScriptReference/Object.DontDestroyOnLoad.html) de mevcuttur, böylece sahne değişiminde kaybolmaz.
   
  </details>
 
@@ -255,7 +254,7 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>PlayerPrefs Sistemi</summary>
    <br>
   
-   > PlayerPrefs anahtarlarını ve değerlerini ```GameManager (Nesne) > Game Editor (Script)``` içinden düzenleyebilirsiniz. 3 veri tipinde kolay kaydetme yapmanızı sağlar.  GameArchitecture Dosya için Save sistemi ile ilgili değildir.
+   > PlayerPrefs anahtarlarını ve değerlerini ```GameManager (Nesne) > Game Editor (Script)``` içinden düzenleyebilirsiniz. 3 veri tipinde kolay kaydetme yapmanızı sağlar.  GameArchitecture Dosya için Kayıt sistemi ile ilgili değildir.
   
  </details>
 
@@ -263,50 +262,50 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>Localization(Yerelleştirme) Sistemi</summary>
    <br>
   
-   > GameArchitecture, oyununuzu istediğiniz dilde desteklemenizi sağlar.  Bunun için ```GameManager (Object) > GameEditor (Script)`` üzerinden istediğiniz dilleri oluşturabilir veya silebilirsiniz.
+   > GameArchitecture, oyununuzu istediğiniz dilde desteklemenizi sağlar.  Bunun için ```GameManager (Object) > GameEditor (Script)``` üzerinden istediğiniz dilleri oluşturabilir veya silebilirsiniz.
   
-   > Düzenleyici için değiştirecekseniz dili de anında ayarlayabilirsiniz.  Diller için yazacağınız metinleri ``Resources``` klasöründeki .txt dosyasına yazmanız yeterlidir.
+   > ```GameManager (Object) > GameEditor (Script)``` üzerinden dil ekledikten sonra düzenlemek çok kolay. Diller için yazacağınız anahtar ve metinleri ```Resources``` klasöründeki .txt dosyasına yazmanız yeterlidir.
   
-   > ```MultiLang.GetTranslation("key")``` ile bir tuş belirleyerek metinlerinizi yazabilir ve kullandığınız dile özel metinler alabilirsiniz.
+   > ```MultiLang.GetTranslation("key")``` ile bir anahtar belirleyerek metinlerinizi yazabilir ve kullandığınız dile özel metinler alabilirsiniz.
   
  </details>
 
  <details>
-   <summary>GUI ile Çarpıştırıcı Sistemi</summary>
+   <summary>GUI ile Collider Sistemi</summary>
    <br>
   
-   > Çarpıştırıcı ve Çarpışma sistemini GameArchitecture ile eklemek basittir.  Collider for Trigger veya Collision ile olayları kontrol ederek daha dinamik bir yapı oluşturabilirsiniz.
+   > Trigger ve Collision sistemini GameArchitecture ile kontrol etmek basittir. Collider objesini Trigger veya Collision olarak ayarlayarak hem arayüz tarafında kolaylık elde edersiniz hem de bazı olayları kontrol ederek daha dinamik bir yapı oluşturabilirsiniz.
   
- **Çarpıştırıcı Tipi**
-   > Tetik: Tetik, fiziksel hareketi engellemez ve genellikle belirtilen alan için bir oyuncunun veya herhangi bir nesnenin hareketlerine göre olayları gerçekleştirmek için kullanılır.  [GUI](https://docs.unity3d.com/ScriptReference/GUI.html) üzerinde kırmızı görünür.  Örneğin, bunu karakterin oyunu kazanması gereken yere koyarak, oraya ulaştığında olacak olayları göstermek için Tetikleyiciyi kullanabilirsiniz.
+ **Collider Type**
+   > Trigger: Trigger, fiziksel hareketi engellemez ve genellikle belirtilen alan için bir oyuncunun veya herhangi bir nesnenin hareketlerine göre olayları gerçekleştirmek için kullanılır. [GUI](https://docs.unity3d.com/ScriptReference/GUI.html) üzerinde kırmızı görünür. Örneğin, bunu karakterin oyunu kazanması gereken yere koyarak, oraya ulaştığında olacak olayları göstermek için kullanabilirsiniz.
   
-   > Çarpışma: Fiziksel hareketi engeller.  [GUI](https://docs.unity3d.com/ScriptReference/GUI.html) üzerinde mavi görünür.  Genellikle bir engel olarak kullanılır ancak Tetikleyici gibi olayları çağırmak için kullanılabilir.  Örneğin karakter kutuyu itmeye başladıysa animasyon getirmek için kullanılabilir.
+   > Collision: Fiziksel hareketi engeller. [GUI](https://docs.unity3d.com/ScriptReference/GUI.html) üzerinde mavi görünür. Genellikle bir engel olarak kullanılır ancak tetikleyici olayları çağırmak için kullanılabilir. Örneğin karakter kutuyu itmeye başladıysa animasyon getirmek için kullanılabilir.
 
- **Etiketler**
-   > Çarpıştırıcınızın belirli etiketler için etkili olmasını istiyorsanız, onu bileşendeki etiketleri gir bölümüne ekleyebilirsiniz.  Boş bırakılırsa tüm etiketler için geçerlidir.
+ **Tags**
+   > Collider objesinin belirli etiketler için etkili olmasını istiyorsanız, onu bileşendeki etiketleri gir bölümüne ekleyebilirsiniz.  Boş bırakılırsa tüm etiketler için geçerlidir.
   
- **Çarpıştırıcı Olayları**
-   > Girin: Genellikle **Tetikleyici** tipi için kullanılır.  İçine bir nesne girilmişse belirtilen işlevi çağırır.
+ **Collider Events**
+   > Enter: Genellikle **Trigger** tipi için kullanılır. İçine bir nesne girilmişse belirtilen metodu çağırır.
   
-   > Çıkış: Mantık **Enter** ile aynıdır.  Yalnızca bir nesne alandan çıktığında belirtilen işlevi çağırır.
+   > Exit: Mantığı **Enter** ile aynıdır. Yalnızca bir nesne alandan çıktığında belirtilen metodu çağırır.
   
-   > Kal: Kal, tetiğe dokunan diğer her Çarpıştırıcı için fizik güncellemesi başına bir kez çağrılır.
+   > Stay: Stay, collider'a dokunan diğer her collider için fizik güncellemesi başına bir kez çağrılır.
   
- ** Çarpıştırıcıyı Yok Et**
-   > Tetik tipi için kullanılması tavsiye edilir.  Belirtilen olay türlerinden herhangi biri çalışırsa, çarpıştırıcı nesnesi oyun sahnesinden silinir.  Örneğin, oyuncu paraları topladığı zaman kaybolur.
+ **Destroy Collider**
+   > Trigger tipi için kullanılması tavsiye edilir.  Belirtilen olay türlerinden herhangi biri çalışırsa, collider nesnesi oyun sahnesinden silinir. Örneğin, oyuncu paraları topladığı zaman kaybolur.
     
   
  </details>
 
  <details>
-   <summary>File Save/Load Sistemi</summary>
+   <summary>Dosya için Kaydetme/Yükleme Sistemi</summary>
    <br>
   
- > Dosya üzerinde kaydetme işlemleri yapmak için kullanılır.  SaveManager nesnesiyle birlikte kullanılır.
+ > Dosya üzerinde kaydetme işlemleri yapmak için kullanılır. SaveManager nesnesiyle birlikte kullanılır.
   
- > Veri Komut Dosyasına kaydetmek istediğiniz Değişkenleri Ayarlayın.  Ve sadece Save Handler ile kaydedin veya yükleyin.
+ > Data Dosyasına kaydetmek istediğiniz değişkenleri Ayarlayın. Ve sadece Save Handler ile kaydedin veya yükleyin.
   
- > Varlıklar/Kaydetler altında verileri kaydeder.  Kaydetme ayarlarını değiştirmek için, **SaveSystem** komut dosyasındaki **SAVE_FOLDER** değişkenini değiştirmeniz yeterlidir.
+ > Assets/Saves altında verileri kaydeder. Kaydetme ayarlarını değiştirmek için, **SaveSystem** komut dosyasındaki **SAVE_FOLDER** değişkenini değiştirmeniz yeterlidir.
   
  > Etiket adı "SaveManager"
   
@@ -319,17 +318,17 @@ This small document will simply introduce you to the **features**. So **let's st
    > Oyun sahnesindeki herhangi bir nesnenin alt nesnelerinde toplu değişiklikler yapmak için bu bileşeni kullanabilirsiniz.
 
  - Oyun sahnesindeki alt nesnelerin görünürlüğünü değiştirebilirsiniz.
- - Alt nesnelerin bileşenlerini metin olarak bileşen adını yazarak açıp kapatabilirsiniz.
+ - Alt nesnelerin bileşenlerini(component) metin olarak bileşen adını yazarak açıp kapatabilirsiniz.
   
  </details>
   
  <details>
-   <summary>Dialogue Sistemi</summary>
+   <summary>Diyalog Sistemi</summary>
    <br>
   
-   > GameArchitecture hazır bir diyalog sistemine sahiptir.  Harf veya kelime ile ses, özel metinler, bekleme, geçme, dil desteği (vb.) gibi özellikler içerir. Tasarımlar da hazır olarak mevcuttur.  İsterseniz değiştirebilirsiniz.
+   > GameArchitecture hazır bir diyalog sistemine sahiptir. Harf veya kelime başına özel ses, özel metinler, bekleme, geçme, dil desteği (vb.) gibi özellikler içerir. Tasarımlar da hazır olarak mevcuttur. Dilerseniz değiştirebilirsiniz.
   
-   > Dialogue nesnesinde (prefabrik) kutular oluşturarak "Yazar" komut dosyasını düzenleyebilirsiniz.  Cümleyi doğrudan cümle girişlerine veya anahtarı dil .txt dosyalarında (Kaynaklar klasörü) yazmanız gerekir.  Anahtar bulunursa dosyaya göre gösterilecektir.  Olaydan sonra diğer diyalog kutusuna devam edip etmeyeceğini kontrol eder.  Farklı olaylar ekleyerek diyalog sırasında çeşitli olayları da çağırabilirsiniz.
+   > Dialogue nesnesinde (prefab) kutular oluşturarak "Writer" komut dosyasını düzenleyebilirsiniz. Cümleyi doğrudan cümle girişlerine veya anahtarı dil .txt dosyalarında (Resources klasörü) yazmanız gerekir. Anahtar bulunursa dosyaya göre gösterilecektir. Olaydan sonra diğer diyalog kutusuna devam edip etmeyeceğini kontrol eder. Farklı olaylar ekleyerek diyalog sırasında çeşitli olayları da çağırabilirsiniz.
   
  </details>
 
@@ -337,27 +336,27 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>Özel Metin Efektleri</summary>
    <br>
   
-   > Dil dosyasına belirli etiketler sağlayarak metinler için özelleştirmeler sağlayabilirsiniz.  Örneğin;  ```<shake>Merhaba</shake>``` metni sallar.
+   > Dil dosyasına belirli etiketler sağlayarak metinler için özelleştirmeler sağlayabilirsiniz. Örneğin;  ```<shake>Merhaba</shake>``` metne deprem etkisi verir.
   
    ### Wave
   
-   > Metni bir bayrak gibi dalgalandırır.  Örneğin;  ```<wobbly>Merhaba Oyuncu!</wobbly>```
+   > Metni bir bayrak gibi dalgalandırır. Örneğin;  ```<wobbly>Merhaba Oyuncu!</wobbly>```
   
-   ### Sallamak
+   ### Shake
   
-   > Metni deprem oluyormuş gibi hissettiriyor.  Örneğin;  ```<shake>Vay canına, Neler oluyor!</shake>```
+   > Metne deprem etkisi verir. Örneğin;  ```<shake>Vay canına, Neler oluyor!</shake>```
   
-   ### Jöle
+   ### Jelly
   
-   > Metne jel benzeri bir animasyon verir.  Örneğin;  ```<jelly>Eww, bu iğrenç!</jelly>```
+   > Metne jel benzeri bir animasyon verir. Örneğin;  ```<jelly>Iyy, bu iğrenç!</jelly>```
   
-   ### Spritelar
+   ### Sprites(Emoji / Resim)
   
-   > Çeşitli emojilerin kullanımına izin verir.  Emoji kod listesini [burada](https://learn.unity.com/tutorial/textmesh-pro-sprite-assets) bulabilirsiniz.  Örneğin;  ```<sprite=6>``` (😂)
+   > Çeşitli emojilerin kullanımına izin verir. Emoji kod listesini [burada](https://learn.unity.com/tutorial/textmesh-pro-sprite-assets) bulabilirsiniz. Örneğin;  ```<sprite=6>``` (😂)
   
    ### Renkler
   
-   > Metinlerin renklerini de kolayca değiştirebilirsiniz.  Diğer etiketlerle de çalışır.  Örneğin;  ```<shake><color=red>TEHLİKELİ görünüyor!</color><shake>```
+   > Metinlerin renklerini de kolayca değiştirebilirsiniz. Diğer etiketlerle de çalışır.  Örneğin;  ```<shake><color=red>TEHLİKELİ</color> görünüyor!<shake>```
 
  </details>
 
@@ -365,7 +364,7 @@ This small document will simply introduce you to the **features**. So **let's st
    <summary>Geçiş Efektleri</summary>
    <br>
   
-   > GamerArchitecture'da birçok geçiş efekti animasyonu bulunmaktadır.  Bunlar sahne geçişleri için kullanılabilir.  GameManager'daki "LoadScene" işlevi kullanıldığında, sahne öncesi ve sonrası geçiş efektini otomatik olarak kullanır.  Bu efektlerin diğer UI öğelerinin üzerinde durabilmesi için en altta UI (Canvas) nesnesini koymak gerekir.  Etiket adı "Geçiş"
+   > GamerArchitecture'da birçok geçiş efekti animasyonu bulunmaktadır.  Bunlar sahne geçişleri için kullanılabilir.  GameManager'daki ```LoadScene``` işlevi kullanıldığında, sahne öncesi ve sonrası geçiş efektini otomatik olarak kullanır.  Bu efektlerin diğer UI öğelerinin üzerinde durabilmesi için en altta UI (Canvas) nesnesini koymak gerekir.  Etiket adı "Transition"
   
   </details>
 
