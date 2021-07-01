@@ -35,6 +35,32 @@ This small document will simply introduce you to the **features**. So **let's st
   
 <details>
   <summary>Camera Manager</summary>
+  <br>
+  
+  > GameArchitecture Camera comes with many dynamic modes. You can change it with one click according to the type of your game.
+  
+  ### Camera Target
+  
+  > Kameranın takip edeceği hedefi belirlemenize yarar. ```Transform``` componenti alır.
+  
+  ### Camera Smoothness
+  
+  > The camera makes sharp movements as it follows the target. You can set the Smoothness setting below 1 to provide a smoother follow-up.
+  
+  ### Camera Type
+  
+  > It serves to change the camera mode. There are 3 different options.
+  
+  >> ```AlwaysTarget``` Sets the camera to continuously follow the target object you selected. Recommended for Top-Down 2D games.
+  
+  >> ```AlwaysTargetWithLimit``` Its logic is the same as **AlwaysTarget**. Only with this mod you can set certain limits on X and Y positions.
+  
+  >> ```TargetEdgeScrolling``` As soon as the target goes out of the camera in X and Y positions, it determines a new area with a linear movement and aligns the environment according to the given offset.
+  
+  ### Camera Track State
+  
+  > Allows you to set the coordinate directions that the camera will follow for target.
+  
 </details>
 
 <details>
@@ -218,6 +244,36 @@ This small document will simply introduce you to the **features**. So **let's st
  > Kolay bir arayüz sağlar. Ek olarak kod yazmanızı gerektirmez.
 
  </details>
+  
+  <details>
+  <summary>Camera Manager</summary>
+  <br>
+  
+  > GameArchitecture Kamerası birçok dinamik modla birlikte gelir. Oyununuzun türüne göre tek tıkla değiştirebilirsiniz.
+  
+  ### Camera Target
+  
+  > Kameranın takip edeceği hedefi belirlemenize yarar. ```Transform``` bileşeni(componenti) alır.
+  
+  ### Camera Smoothness
+  
+  > Kamera hedefi takip ederken keskin hareketler yapar. Daha sorunsuz bir takip sağlamak için ```Smoothness``` ayarını 1'in altında olacak şekilde ayarlayabilirsiniz.
+  
+  ### Camera Type
+  
+  > Kamera modunu değiştirmeye yarar. 3 farklı seçenek vardır.
+  
+  >> ```AlwaysTarget``` Kamerayı, seçtiğiniz hedef nesneyi sürekli takip edecek şekilde ayarlar. Top-Down 2D oyunlar için önerilir.
+  
+  >> ```AlwaysTargetWithLimit``` Mantığı **AlwaysTarget** ile aynıdır. Sadece bu mod ile X ve Y pozisyonlarına belirli limitler koyabilirsiniz.
+  
+  >> ```TargetEdgeScrolling``` Hedef X ve Y konumlarında kameranın dışına çıktığı anda lineer bir hareketle yeni bir alan belirler ve ortamı verilen offsete göre hizalar.
+  
+  ### Camera Tracking Coordinates
+  
+  > Kameranın hedef için izleyeceği koordinat yönlerini ayarlamanızı sağlar.
+  
+</detaylar>
 
  <details>
    <summary>UI Manager</summary>
