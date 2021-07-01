@@ -1,5 +1,5 @@
 <div stlye="margin: 0 auto;">
-  <img src="https://raw.githubusercontent.com/LatifY/GameArchitecture/main/Assets/GameArchitecture/Sprites/Icons/garc_icon.png", width=120>
+  <img src="https://lh3.googleusercontent.com/-0Mj__ZAR-h4/YN272MDkFnI/AAAAAAAABR8/N-6KFBPboQQaudkBPwuXpvKVWdYSi6jfACLcBGAsYHQ/GARC_Circular.png", width=160>
 </div>
 
 # GameArchitecture
