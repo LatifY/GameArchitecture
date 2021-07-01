@@ -10,6 +10,10 @@
   > **GameArchitecture** is a package made by **[Latif Yılmaz](https://latifyilmaz.com)**. It will make it easier for you to make games in Unity. It has many software and technical tools for developers.
 
 This small document will simply introduce you to the **features**. So **let's start!**
+  
+### Setup
+  
+  > Simply drag the ```GameArchitecture<version>.unitypackage``` file under the [Packages](https://github.com/LatifY/GameArchitecture/tree/main/Packages) folder into Unity. If you want, you can continue by opening the file you downloaded directly as a project on Unity.
 
 ### Introductions
 
@@ -222,6 +226,10 @@ This small document will simply introduce you to the **features**. So **let's st
    > **GameArchitecture**, **[Latif Yılmaz](https://latifyilmaz.com)** tarafından hazırlanmış bir pakettir.  Unity'de oyun yapmanızı kolaylaştıracaktır.  Geliştiriciler için birçok yazılım ve teknik araca sahiptir.
 
  Bu küçük doküman size GameArchitecture paketinin **özelliklerini ve araçlarını** tanıtacaktır.  **Haydi başlayalım!**
+  
+ ### Kurulum
+  
+  > [Packages](https://github.com/LatifY/GameArchitecture/tree/main/Packages) klasörü altındaki ```GameArchitecture<SÜRÜM>.unitypackage``` dosyasını Unity içine sürüklemeniz yeterlidir. İsterseniz direk indirdiğiniz dosyayı Unity üzerinde proje olarak açarak da devam edebilirsiniz.
 
  ### Tanıtım
 
