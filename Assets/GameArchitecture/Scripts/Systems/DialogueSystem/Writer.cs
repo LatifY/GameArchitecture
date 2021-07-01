@@ -67,7 +67,13 @@ public class Writer : MonoBehaviour
 			{
 				AudioManager.Instance.PlayClip(soundName);
 			}
-			string sentence = MultiLang.GetTranslation(key);
+			string sentence = "";
+			if(MultiLang.GetTranslation(key) != null){
+				sentence = MultiLang.GetTranslation(key);
+			}
+			else{
+				sentence = key;
+			}
 			List<string> tags = new List<string>();
 			string tagName = "";
 			bool tag = false;
