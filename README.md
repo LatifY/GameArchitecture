@@ -188,7 +188,6 @@ This small document will simply introduce you to the **features**. So **let's st
 
 <br>
 <br>
-<br>
 
 <details>
    <summary>Türkçe</summary>
